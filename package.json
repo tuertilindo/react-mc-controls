@@ -1,0 +1,57 @@
+{
+  "name": "react-mc-controls",
+  "version": "1.0.0",
+  "description": "React controls for mascocitas",
+  "main": "index.jsx",
+  "scripts": {
+    "run": "npm run build && browser-sync start --server \"www\"",
+    "build": "browserify main.jsx -o www/bundle.js -t [ babelify --presets [ es2015 react ] ] ",
+    "browser": "browser-sync start --server \"www\"",
+    "webpacker": "webpack --progress -p --display-error-details"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuertilindo/react-mc-controls.git"
+  },
+  "dependencies": {
+    "react": "15.4.2",
+    "react-dom": "^15.3.2",
+    "muicss": "0.9.9-rc2",
+    "object-assign": "4.1.1"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015",
+            "react"
+          ]
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "*",
+    "babel-preset-react": "^6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "webpack": "^2.1.0-beta.27"
+
+  },
+  "keywords": [
+    "react",
+    "javascript",
+    "css"
+  ],
+  "author": "Tuertilindo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tuertilindo/react-mc-controls/issues"
+  },
+  "homepage": "https://github.com/tuertilindo/react-mc-controls#readme"
+}

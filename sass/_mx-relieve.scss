@@ -1,0 +1,13 @@
+@mixin relieve-base($radi:3px,$color:white){
+    border-left: 1px solid  lighten($color,20%);
+    border-bottom: 1px solid  darken($color,20%);
+    border-top: 2px solid lighten($color,20%);
+    border-right: 2px solid darken($color,20%);
+    border-radius: $radi;
+    padding:3px;
+    background: $color;
+    box-shadow: 0 0 8px lighten($color,5%);
+    color:inherit;
+    fill:inherit;
+
+}

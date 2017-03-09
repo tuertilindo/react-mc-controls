@@ -1,0 +1,14 @@
+@import "../node_modules/muicss/lib/sass/mui/_colors";
+
+// customize MUI variables
+$mui-primary-color:       mui-color('pink', '500');
+$mui-primary-color-dark:  mui-color('pink', '700');
+$mui-primary-color-light: mui-color('pink', '50');
+
+$mui-accent-color:        mui-color('pink', 'A200');
+$mui-accent-color-dark:   mui-color('pink', 'A100');
+$mui-accent-color-light:  mui-color('pink', 'A400');
+
+$fore-color: mui-color('pink', '700');
+// import MUI SASS;
+@import "../node_modules/muicss/lib/sass/mui"

@@ -1,0 +1,19 @@
+.jumbotron {
+  @include relieve-base(0.5em,$mui-primary-color-light);
+  text-align: center;
+  color: $mui-primary-color-dark;
+
+  h1 {
+
+  }
+
+  p {
+
+  }
+  img {
+    max-width: 90%;
+  }
+
+
+
+}
