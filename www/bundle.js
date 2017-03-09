@@ -216,6 +216,10 @@ var _button = require('muicss/lib/react/button');
 
 var _button2 = _interopRequireDefault(_button);
 
+var _container = require('muicss/lib/react/container');
+
+var _container2 = _interopRequireDefault(_container);
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
@@ -251,10 +255,14 @@ var Jumbotron = function (_React$Component) {
     key: 'render',
     value: function render() {
       var image = null;
+      var button = null;
       if (this.props.image) {
         image = _react2.default.createElement('img', { src: this.props.image });
       }
-      return _react2.default.createElement('div', { className: 'jumbotron' }, _react2.default.createElement('h1', null, this.props.title), image, _react2.default.createElement('p', null, this.props.description), _react2.default.createElement('p', null, _react2.default.createElement(_button2.default, { color: 'accent', onClick: this.props.click }, this.props.action)));
+      if (this.props.action) {
+        button = _react2.default.createElement('p', null, _react2.default.createElement(_button2.default, { color: 'accent', onClick: this.props.click }, this.props.action));
+      }
+      return _react2.default.createElement(_container2.default, null, _react2.default.createElement('div', { className: 'jumbotron' }, _react2.default.createElement('h1', null, this.props.title), image, _react2.default.createElement('p', null, this.props.description), button));
     }
   }]);
 
@@ -263,7 +271,7 @@ var Jumbotron = function (_React$Component) {
 
 exports.default = Jumbotron;
 
-},{"muicss/lib/react/button":34,"react":189}],4:[function(require,module,exports){
+},{"muicss/lib/react/button":34,"muicss/lib/react/container":35,"react":189}],4:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
