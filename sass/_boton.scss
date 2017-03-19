@@ -2,7 +2,7 @@
     cursor: pointer;
     display: inline-block;
     background: none !important;
-      box-shadow: none !important;
+    box-shadow: none !important;
     img,i,svg{
         vertical-align: middle;
         margin-right: -1px;
@@ -41,4 +41,14 @@
         color:$fore-color;
     }
 
+}
+.Coins {
+  display: inline-block;
+  .boton {
+    span{
+      padding-left: 0;
+      font-weight: bold;
+      
+    }
+  }
 }

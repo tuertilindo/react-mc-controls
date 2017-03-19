@@ -5,6 +5,7 @@ import Loading from './controls/Loading.jsx'
 import Boton from './controls/Boton.jsx'
 import Medalla from './controls/Medalla.jsx'
 import Hueso from './controls/Hueso.jsx'
+import Coins from './controls/Coins.jsx'
 import Jumbotron from './controls/Jumbotron.jsx'
 ReactDOM.render((
   <div>
@@ -13,6 +14,7 @@ ReactDOM.render((
       <Boton />
       <Medalla count={76} />
       <Hueso count={10} />
+      <Coins coins={123456} />
     </Container>
     <Container>
       <Jumbotron title="Titulo Principal de la sección"
