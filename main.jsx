@@ -6,6 +6,7 @@ import Boton from './controls/Boton.jsx'
 import Medalla from './controls/Medalla.jsx'
 import Hueso from './controls/Hueso.jsx'
 import Coins from './controls/Coins.jsx'
+import Listitem from './controls/Listitem.jsx'
 import Jumbotron from './controls/Jumbotron.jsx'
 ReactDOM.render((
   <div>
@@ -22,6 +23,11 @@ ReactDOM.render((
         action="Presiona aqui"
         image="images/Cardsplay.png" />
     </Container>
+    <ul>
+      <Listitem title="Item 1" />
+      <Listitem title="Item 2" />
+      <Listitem title="Item 3" />
+    </ul>
   </div>
 ),
 document.getElementById('root')
