@@ -8,6 +8,7 @@ ul {
 li{
     list-style-type: none;
     clear: both;
+
 }
 
 li > img {
@@ -20,8 +21,15 @@ li > img {
   -ms-transform: rotate(-7deg); /* IE 9 */
   -webkit-transform: rotate(-7deg); /* Chrome, Safari, Opera */
   transform: rotate(-7deg);
-  @include respond-to(w240port){height: 40px;width: 68px;border: 3px whitesmoke solid;}
-  @include respond-to(w240land){height: 50px;width: 85px;border: 4px whitesmoke solid;}
+  @include respond-to(w240port){height: 40px;width: 50px;border: 3px whitesmoke solid;}
+  @include respond-to(w240land){height: 50px;width: 65px;border: 4px whitesmoke solid;}
+  cursor: pointer;
+}
+li > H2 {
+  font-weight: bold;
+  text-align: center;
+  @include respond-to(w240port){font-size: 1.4em}
+  @include respond-to(w240land){font-size: 1.5em}
 }
 
 li p {

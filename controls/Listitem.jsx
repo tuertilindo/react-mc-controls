@@ -9,9 +9,13 @@ export default class Listitem extends React.Component {
     }, props)
   }
   render () {
+    var lclick = null
+    if (this.state.id && this.state.callback instanceof Function) {
+      lclick = () => { this.state.callback(this.state.id) }
+    }
     return (
       <li>
-        <img onClick={this.props.click} src={this.state.image} />
+        <img onClick={lclick} src={this.state.image} />
         <h2>{this.state.title}</h2>
         <div>
            {this.props.children}

@@ -28,7 +28,7 @@ export default class Boton extends React.Component {
     // span
     var btn = null
     var spn = this.state.span
-    if (spn !== null) {
+    if (spn) {
       btn = <span className={this.state.color} >
         {spn}
       </span>
