@@ -18,7 +18,6 @@ export default class Jumbotron extends React.Component {
         <p>{this.props.description}</p>
         {button}
       </div>
-
     </Container>
     )
   }
