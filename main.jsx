@@ -7,6 +7,7 @@ import Medalla from './controls/Medalla.jsx'
 import Hueso from './controls/Hueso.jsx'
 import Coins from './controls/Coins.jsx'
 import Pets from './controls/Pets.jsx'
+import Crop from './controls/Crop.jsx'
 import Jumbotron from './controls/Jumbotron.jsx'
 const petes = [
         {id: 0, image: 'images/maze-i.png', name: 'Pet 1', huesos: 1582, rank: 4, medallas: 53000},
@@ -33,6 +34,7 @@ ReactDOM.render((
         image="images/Cardsplay.png" />
     </Container>
     <Pets pets={petes} onClick={(id) => console.log(id)} />
+    <Crop />
   </div>
 ),
 document.getElementById('root')

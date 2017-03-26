@@ -14,10 +14,12 @@
     "url": "git+https://github.com/tuertilindo/react-mc-controls.git"
   },
   "dependencies": {
-    "react": "15.4.2",
-    "react-dom": "^15.3.2",
+    "base64toblob": "0.0.1",
     "muicss": "0.9.9-rc2",
-    "object-assign": "4.1.1"
+    "object-assign": "4.1.1",
+    "react": "15.4.2",
+    "react-cropper": "^0.10.1",
+    "react-dom": "^15.3.2"
   },
   "browserify": {
     "transform": [
@@ -41,7 +43,6 @@
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
     "webpack": "^2.1.0-beta.27"
-
   },
   "keywords": [
     "react",
