@@ -33,6 +33,9 @@ ReactDOM.render((
         action="Presiona aqui"
         image="images/Cardsplay.png" />
     </Container>
+    <Jumbotron title="Algún titulo" />
+    <Jumbotron description="No hay descripcion" />
+    <Jumbotron image="images/Cardsplay.png" />
     <Pets pets={petes} onClick={(id) => console.log(id)} />
     <Crop />
   </div>
