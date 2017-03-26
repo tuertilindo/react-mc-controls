@@ -4,13 +4,14 @@
     background: none !important;
     box-shadow: none !important;
     img,i,svg{
+        @include relieve-base(50%);
         vertical-align: middle;
         margin-right: -1px;
-        width: 28px;
-        height: 28px;
-        font-size: 26px;
-        line-height: 28px;
-        @include relieve-base(50%);
+        width: 24px;
+        height: 24px;
+        font-size: 24px;
+        line-height: 24px;
+        padding: 1px;
         border-right: transparent !important;
 
 
@@ -33,7 +34,8 @@
     }
     span{
         @include relieve-base(0 1.5em 1.5em 0);
-
+        font-size: 0.8em;
+        font-weight: bold;
         border-left: none !important;
         vertical-align: middle;
         padding-bottom: 0;
@@ -48,7 +50,7 @@
     span{
       padding-left: 0;
       font-weight: bold;
-      
+
     }
   }
 }
