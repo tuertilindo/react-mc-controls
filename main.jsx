@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import Container from 'muicss/lib/react/container'
 import Loading from './controls/Loading.jsx'
 import Boton from './controls/Boton.jsx'
+import InputBox from './controls/InputBox.jsx'
 import Medalla from './controls/Medalla.jsx'
 import Hueso from './controls/Hueso.jsx'
 import Coins from './controls/Coins.jsx'
@@ -32,6 +33,8 @@ ReactDOM.render((
         description="No hay descripcion"
         action="Presiona aqui"
         image="images/Cardsplay.png" />
+      <InputBox />
+      <InputBox multiline />
     </Container>
     <Jumbotron title="Algún titulo" />
     <Jumbotron description="No hay descripcion" />

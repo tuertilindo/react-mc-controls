@@ -1,0 +1,12 @@
+.inputbox {
+  @include relieve-base(0.5em,$mui-primary-color-light);
+  .mui-textfield {
+    input, textarea {
+      background-color: white;
+    }
+
+  }
+  button {
+    float: right;
+  }
+}
