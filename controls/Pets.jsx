@@ -11,12 +11,12 @@ export default class Pets extends React.Component {
       <Listitem
         key={'pet' + pet.id}
         id={pet.id}
-        image={pet.image}
+        image={pet.image || 'images/Cardsplay.png'}
         title={pet.name}
         callback={this.props.onClick}
         >
-        <Coins coins={pet.medallas} />
-        <Hueso count={pet.huesos} />
+        <Coins coins={pet.medallas || 0} />
+        <Hueso count={pet.huesos || 0} />
         <Medalla count={pet.rank} />
 
       </Listitem>

@@ -4,6 +4,7 @@ import Container from 'muicss/lib/react/container'
 import Loading from './controls/Loading.jsx'
 import Boton from './controls/Boton.jsx'
 import InputBox from './controls/InputBox.jsx'
+import CheckBox from './controls/CheckBox.jsx'
 import Medalla from './controls/Medalla.jsx'
 import Hueso from './controls/Hueso.jsx'
 import Coins from './controls/Coins.jsx'
@@ -35,6 +36,7 @@ ReactDOM.render((
         image="images/Cardsplay.png" />
       <InputBox />
       <InputBox multiline />
+      <CheckBox /><CheckBox />
     </Container>
     <Jumbotron title="Algún titulo" />
     <Jumbotron description="No hay descripcion" />
