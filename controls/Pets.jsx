@@ -17,7 +17,7 @@ export default class Pets extends React.Component {
         >
         <Coins coins={pet.medallas || 0} />
         <Hueso count={pet.huesos || 0} />
-        <Medalla count={pet.rank} />
+        <Medalla count={pet.rank || 0} title="Nivel {c}" />
 
       </Listitem>
     )

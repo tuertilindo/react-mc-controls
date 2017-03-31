@@ -10,6 +10,7 @@ import Hueso from './controls/Hueso.jsx'
 import Coins from './controls/Coins.jsx'
 import Pets from './controls/Pets.jsx'
 import Crop from './controls/Crop.jsx'
+import Error from './controls/Error.jsx'
 import Jumbotron from './controls/Jumbotron.jsx'
 const petes = [
         {id: 0, image: 'images/maze-i.png', name: 'Pet 1', huesos: 1582, rank: 4, medallas: 53000},
@@ -22,6 +23,8 @@ const petes = [
 ]
 ReactDOM.render((
   <div>
+    <Error title="Ups!"
+      desc="Se ha producido un error" />
     <Loading />
     <Container fluid >
       <Boton />

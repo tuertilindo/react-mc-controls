@@ -1,0 +1,14 @@
+.error {
+  @include relieve-base(0.5em,$mui-primary-color-dark);
+
+  padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+  color: white;
+	border-radius: 4px;
+  img {
+    width: 26px;
+    margin-right: 10px;
+    float: left;
+  }
+}
