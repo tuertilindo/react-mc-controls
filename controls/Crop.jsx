@@ -83,15 +83,15 @@ export default class Crop extends Component {
   }
   render () {
     if (this.state.generando) {
-      return (<Loading span="Generando imagen..." />)
+      return (<Container><Loading span="Generando imagen..." /></Container>)
     }
     if (!this.state.src) {
-      return (<div>
+      return (<Container>
         <label>
-          <h3 className="inputbutton" >Seleccionar la imagen</h3>
+          <h3 className="inputbutton" >Crea una tarjeta</h3>
           <input ref="fimage" className="fileInput" type="file" name="file" accept="image/" capture="camera" onChange={this.onChange} />
         </label>
-      </div>)
+      </Container>)
     }
     var createCard = () => {
       if (this.state.onCreate) {

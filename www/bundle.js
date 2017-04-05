@@ -575,10 +575,10 @@ var Crop = function (_Component) {
       var _this2 = this;
 
       if (this.state.generando) {
-        return _react2.default.createElement(_Loading2.default, { span: 'Generando imagen...' });
+        return _react2.default.createElement(_container2.default, null, _react2.default.createElement(_Loading2.default, { span: 'Generando imagen...' }));
       }
       if (!this.state.src) {
-        return _react2.default.createElement('div', null, _react2.default.createElement('label', null, _react2.default.createElement('h3', { className: 'inputbutton' }, 'Seleccionar la imagen'), _react2.default.createElement('input', { ref: 'fimage', className: 'fileInput', type: 'file', name: 'file', accept: 'image/', capture: 'camera', onChange: this.onChange })));
+        return _react2.default.createElement(_container2.default, null, _react2.default.createElement('label', null, _react2.default.createElement('h3', { className: 'inputbutton' }, 'Seleccionar la imagen'), _react2.default.createElement('input', { ref: 'fimage', className: 'fileInput', type: 'file', name: 'file', accept: 'image/', capture: 'camera', onChange: this.onChange })));
       }
       var createCard = function createCard() {
         if (_this2.state.onCreate) {
