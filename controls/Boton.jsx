@@ -12,7 +12,8 @@ export default class Boton extends React.Component {
       icon: null,
       image: null,
       count: 0,
-      huge: false
+      huge: false,
+      desinflate: false
     }, props)
   }
   render () {
@@ -33,8 +34,13 @@ export default class Boton extends React.Component {
         {spn}
       </span>
     }
+    var huge = this.state.huge ? 'huge ' : ' '
+    var desinflate = this.state.desinflate ? 'desinflate ' : ' '
     return (
-      <span className={'boton  ' + this.state.color} onClick={this.state.click} title={title} >
+      <span className={
+          'boton  ' +
+          this.state.color + ' ' + {huge} + {desinflate}
+        } onClick={this.state.click} title={title} >
       {image}
       {btn}
       </span>

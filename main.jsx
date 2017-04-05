@@ -11,6 +11,7 @@ import Coins from './controls/Coins.jsx'
 import Pets from './controls/Pets.jsx'
 import Crop from './controls/Crop.jsx'
 import Error from './controls/Error.jsx'
+import Marquesina from './controls/Marquesina.jsx'
 import Jumbotron from './controls/Jumbotron.jsx'
 const petes = [
         {id: 0, image: 'images/maze-i.png', name: 'Pet 1', huesos: 1582, rank: 4, medallas: 53000},
@@ -21,6 +22,10 @@ const petes = [
         {id: 5, image: 'images/maze-i.png', name: 'Pet 6', huesos: 33, rank: 24, medallas: 0},
         {id: 6, image: 'images/maze-i.png', name: 'Pet 7', huesos: 1555682, rank: 43, medallas: 0}
 ]
+var lista = []
+petes.forEach((i, x) => {
+  lista.push(<div key={x}><img src={i.image} /></div>)
+})
 ReactDOM.render((
   <div>
     <Error title="Ups!"
@@ -41,6 +46,7 @@ ReactDOM.render((
       <InputBox multiline />
       <CheckBox /><CheckBox />
     </Container>
+    <Marquesina list={lista} />
     <Jumbotron title="Algún titulo" />
     <Jumbotron description="No hay descripcion" />
     <Jumbotron image="images/Cardsplay.png" />

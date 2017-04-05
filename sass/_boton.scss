@@ -54,3 +54,16 @@
     }
   }
 }
+.desinflate {
+  animation: 0.5s ease-out 0s 1 desinflate;
+}
+
+@keyframes desinflate {
+    0% {
+        transform: scale(1.2);
+
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
