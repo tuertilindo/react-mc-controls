@@ -16,11 +16,8 @@ import Jumbotron from './controls/Jumbotron.jsx'
 const petes = [
         {id: 0, image: 'images/maze-i.png', name: 'Pet 1', huesos: 1582, rank: 4, medallas: 53000},
         {id: 1, image: 'images/maze-i.png', name: 'Pet 2', huesos: 312, rank: 43, medallas: 33},
-        {id: 2, image: 'images/maze-i.png', name: 'Pet 3', huesos: 1242, rank: 2, medallas: 1223},
-        {id: 3, image: 'images/maze-i.png', name: 'Pet 4', huesos: 3, rank: 41, medallas: 32},
-        {id: 4, image: 'images/maze-i.png', name: 'Pet 5', huesos: 0, rank: 14, medallas: 4431},
-        {id: 5, image: 'images/maze-i.png', name: 'Pet 6', huesos: 33, rank: 24, medallas: 0},
-        {id: 6, image: 'images/maze-i.png', name: 'Pet 7', huesos: 1555682, rank: 43, medallas: 0}
+        {id: 2, image: 'images/maze-i.png', name: 'Pet 3', huesos: 1242, rank: 2, medallas: 1223}
+
 ]
 var lista = []
 petes.forEach((i, x) => {
@@ -30,12 +27,12 @@ ReactDOM.render((
   <div>
     <Error title="Ups!"
       desc="Se ha producido un error" />
-    <Loading />
     <Container fluid >
       <Boton />
       <Medalla count={76} />
       <Hueso count={10} />
       <Coins coins={123456} />
+      <Loading />
     </Container>
     <Container>
       <Jumbotron title="Titulo Principal de la sección"
@@ -44,13 +41,14 @@ ReactDOM.render((
         image="images/Cardsplay.png" />
       <InputBox />
       <InputBox multiline />
-      <CheckBox /><CheckBox />
+      <CheckBox name="check1" /><CheckBox name="check2" />
     </Container>
     <Marquesina list={lista} />
-    <Jumbotron title="Algún titulo" />
-    <Jumbotron description="No hay descripcion" />
+    <Jumbotron title="Jumbotron solo titulo" />
+    <Jumbotron description="Jumbotron solo descripcion" />
     <Jumbotron image="images/Cardsplay.png" />
     <Pets pets={petes} onClick={(id) => console.log(id)} />
+    <Pets pets={[]} title="Sin mascotas" onClick={(id) => console.log(id)} />
     <Crop />
   </div>
 ),

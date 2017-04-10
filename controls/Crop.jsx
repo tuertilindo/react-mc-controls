@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import Input from 'muicss/lib/react/input'
-import Appbar from 'muicss/lib/react/appbar'
 import Boton from './Boton.jsx'
 import Loading from './Loading.jsx'
+import Panel from './Panel.jsx'
+import Bar from './Bar.jsx'
 import Cropper from 'react-cropper'
 import base64toblob from 'base64toblob'
-import Container from 'muicss/lib/react/container'
 const objectAssign = require('object-assign')
 export default class Crop extends Component {
   constructor (props) {
@@ -82,16 +82,16 @@ export default class Crop extends Component {
     })
   }
   render () {
+    var title = 'Crear una tarjeta'
     if (this.state.generando) {
-      return (<Container><Loading span="Generando imagen..." /></Container>)
+      return (<Panel title={title}><Loading span="Generando imagen..." /></Panel>)
     }
     if (!this.state.src) {
-      return (<Container>
+      return (<Panel title={title} image="images/maze-i.png">
         <label>
-          <h3 className="inputbutton" >Crea una tarjeta</h3>
           <input ref="fimage" className="fileInput" type="file" name="file" accept="image/" capture="camera" onChange={this.onChange} />
         </label>
-      </Container>)
+      </Panel>)
     }
     var createCard = () => {
       if (this.state.onCreate) {
@@ -113,13 +113,13 @@ export default class Crop extends Component {
     var zoomin = () => { zoom(0.1) }
     var zoomout = () => { zoom(-0.1) }
     var stylew = document.body.clientWidth / 1.7777
-    return (<Container key="cropkey">
-      <Appbar className="ubar">
+    return (<Panel key="cropkey" title={title} image="images/maze-i.png">
+      <Bar className="ubar">
         <Boton span="Rotar" image="images/rotate-i.png" click={rotate} />
         <Boton span="Agrandar" image="images/zoom-in-i.png" click={zoomin} />
         <Boton span="Achicar" image="images/zoom-out-i.png" click={zoomout} />
         <Boton span="Cancelar" image="images/cancel-i.png" click={this.useDefaultImage} />
-      </Appbar>
+      </Bar>
       <Cropper
         aspectRatio={16 / 9}
         guides={false}
@@ -141,10 +141,10 @@ export default class Crop extends Component {
         ready={this.rebuild}
       />
       <div className="preview">
-        <Input label="Describe la tarjeta" onChange={(e) => { this.state.title = e.target.value }} maxLength="50" floatingLabel={true} type="text" defaultValue={this.state.title} />
+        <Input label="Escribe un texto para la tarjeta" onChange={(e) => { this.state.title = e.target.value }} maxLength="50" floatingLabel={true} type="text" defaultValue={this.state.title} />
         <Boton span="Crear tarjeta" image="images/maze-i.png" click={createCard} />
       </div>
-    </Container>
+    </Panel>
     )
   }
 }

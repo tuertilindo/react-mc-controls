@@ -13,11 +13,13 @@ export default class InputBox extends React.Component {
     }, props)
   }
   render () {
+    this.state.callback(this.state.checked)
     return (<div
       className={this.state.type}>
-      <input
+      <input key={this.state.checked}
         type="checkbox"
         value="None"
+        onChange={(e) => { this.setState({checked: !this.state.checked}) }}
         id={this.state.name}
         name={this.state.name}
         disabled={this.state.disabled}
