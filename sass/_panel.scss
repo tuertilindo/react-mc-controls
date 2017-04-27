@@ -1,11 +1,19 @@
 .panel {
   @include relieve-base(0.5em,$mui-primary-color-light);
   margin: 10px;
+  min-height: 100px;
   .panel-content {
     padding: 10px;
+    height: 100%;
+    position: relative;
+
   }
 }
 .panel > .bar:first-child {
     @include relieve-base(0.5em 0.5em 0 0,$mui-primary-color-dark);
     color: $mui-primary-color-light;
+}
+.mui-container {
+	padding-left: 1px;
+	padding-right: 1px;
 }

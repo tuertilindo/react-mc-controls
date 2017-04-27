@@ -9,4 +9,15 @@
     margin: 0;
 
   }
+  .inline-input{
+    display: inline-flex;
+    max-width: 150px;
+    height: 25px;
+    margin: 0 0 0 10px;
+    padding: 0 0 0 5px;
+    background: white;
+    color: $mui-primary-color-dark;
+    border-radius: 1.5em;
+
+  }
 }
