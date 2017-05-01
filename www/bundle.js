@@ -1720,6 +1720,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
 var _createClass = function () {
   function defineProperties(target, props) {
     for (var i = 0; i < props.length; i++) {
@@ -1745,6 +1755,14 @@ var _Panel2 = _interopRequireDefault(_Panel);
 var _List = require('react-virtualized/dist/commonjs/List');
 
 var _List2 = _interopRequireDefault(_List);
+
+var _Bar = require('./Bar.jsx');
+
+var _Bar2 = _interopRequireDefault(_Bar);
+
+var _Boton = require('./Boton.jsx');
+
+var _Boton2 = _interopRequireDefault(_Boton);
 
 var _AutoSizer = require('react-virtualized/dist/commonjs/AutoSizer');
 
@@ -1775,25 +1793,69 @@ function _inherits(subClass, superClass) {
 var Vlist = function (_React$Component) {
   _inherits(Vlist, _React$Component);
 
-  function Vlist() {
+  function Vlist(props) {
     _classCallCheck(this, Vlist);
 
-    return _possibleConstructorReturn(this, (Vlist.__proto__ || Object.getPrototypeOf(Vlist)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Vlist.__proto__ || Object.getPrototypeOf(Vlist)).call(this, props));
+
+    _this.state = {};
+    var timeoutHandle = null;
+    _this.searchbar = _react2.default.createElement(_Bar2.default, { className: 'ubar' }, _react2.default.createElement('input', {
+      className: 'inline-input',
+      placeholder: 'Buscar...',
+      ref: function ref(el) {
+        _this.inputSearch = el;
+      },
+      onChange: function onChange(event) {
+        var t = event.target.value;
+        window.clearTimeout(timeoutHandle);
+        if (t && t.length > 2) {
+          if (t !== _this.state.searchString) {
+            _this.state.searchString = t;
+            timeoutHandle = window.setTimeout(function () {
+              if (_this.props.filtro instanceof Function) {
+                _this.setState({ searched: _this.props.list.filter(function (item) {
+                    return _this.props.filtro(item, t);
+                  }) });
+                if (_this.my) _this.my.forceUpdateGrid();
+              }
+            }, 500);
+          }
+        } else {
+          if (_this.state.searched) {
+            _this.setState({ searched: null });
+          }
+        }
+      },
+      type: 'text',
+      defaultValue: _this.state.searchString }), _react2.default.createElement(_Boton2.default, { span: '', image: 'images/reset.png', click: function click() {
+        if (_this.state.searched) {
+          _this.inputSearch.value = '';
+          _this.setState({ searched: null, searchString: '' });
+        }
+      } }));
+    return _this;
   }
 
   _createClass(Vlist, [{
     key: 'render',
     value: function render() {
-      var list = this.props.list;
+      var _this2 = this;
+
+      var list = this.state.searched || this.props.list;
+      var sbar = this.props.filtro ? this.searchbar : null;
       if (list) {
         var rowHeight = this.props.rowHeight || 20;
         var height = this.props.height || 300;
         var Ritem = this.props.render || _Listitem2.default;
-        return _react2.default.createElement(_Panel2.default, { title: this.props.title, expandible: true }, _react2.default.createElement('div', { style: { height: 200, width: '100%' } }, _react2.default.createElement(_AutoSizer2.default, { disableHeight: true }, function (newProps) {
+        return _react2.default.createElement(_Panel2.default, { title: this.props.title, expandible: true }, sbar, _react2.default.createElement('div', { style: { height: height, width: '100%' } }, _react2.default.createElement(_AutoSizer2.default, { disableHeight: true }, function (newProps) {
           return _react2.default.createElement(_List2.default, {
             height: height,
             width: newProps.width,
             rowCount: list.length,
+            ref: function ref(_ref2) {
+              _this2.my = _ref2;
+            },
             rowHeight: rowHeight,
             rowRenderer: function rowRenderer(_ref) {
               var key = _ref.key,
@@ -1809,7 +1871,7 @@ var Vlist = function (_React$Component) {
                 isVisible: isVisible,
                 style: style
               };
-              return _react2.default.createElement(Ritem, ret);
+              return _react2.default.createElement(Ritem, _extends({ callback: _this2.props.callback }, ret));
             }
           });
         })));
@@ -1823,7 +1885,7 @@ var Vlist = function (_React$Component) {
 
 exports.default = Vlist;
 
-},{"./Listitem.jsx":11,"./Panel.jsx":15,"react":467,"react-virtualized/dist/commonjs/AutoSizer":390,"react-virtualized/dist/commonjs/List":414}],18:[function(require,module,exports){
+},{"./Bar.jsx":1,"./Boton.jsx":2,"./Listitem.jsx":11,"./Panel.jsx":15,"react":467,"react-virtualized/dist/commonjs/AutoSizer":390,"react-virtualized/dist/commonjs/List":414}],18:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -1891,12 +1953,22 @@ var Vlistitem = function (_React$Component) {
       var _this2 = this;
 
       var lclick = null;
-      if (this.state.id && this.state.callback instanceof Function) {
+      if (this.state.callback instanceof Function) {
         lclick = function lclick() {
-          _this2.state.callback(_this2.state.id);
+          _this2.state.callback(_this2.state);
         };
       }
       return _react2.default.createElement('div', { className: 'vitem', key: this.state.id, style: this.state.style }, _react2.default.createElement('img', { onClick: lclick, src: this.state.image }), _react2.default.createElement('h2', null, this.state.name || this.state.title), _react2.default.createElement('h6', null, this.state.desc));
+    }
+  }, {
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps, nextState) {
+      return this.props.item && nextProps.item && nextProps.item.id !== this.props.item.id;
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.setState(objectAssign(this.state, nextProps.item));
     }
   }]);
 
@@ -2274,7 +2346,12 @@ petes.forEach(function (i, x) {
   lista.push(_react2.default.createElement('div', { key: x }, _react2.default.createElement('img', { src: i.image })));
 });
 _reactDom2.default.render(_react2.default.createElement('div', null, _react2.default.createElement(_Panel2.default, { title: 'Expansible', expandible: true }, _react2.default.createElement(_Error2.default, { title: 'Ups!',
-  desc: 'Se ha producido un error' })), _react2.default.createElement(_Vlist2.default, { list: petes, rowHeight: 45, render: _Vlistitem2.default, title: 'mi lista' }), _react2.default.createElement(_testtree2.default, { treeData: mytree }), _react2.default.createElement(_container2.default, { fluid: true }, _react2.default.createElement(_Boton2.default, null), _react2.default.createElement(_Medalla2.default, { count: 76 }), _react2.default.createElement(_Hueso2.default, { count: 10 }), _react2.default.createElement(_Coins2.default, { coins: 123456 }), _react2.default.createElement(_Loading2.default, null)), _react2.default.createElement(_container2.default, null, _react2.default.createElement(_Jumbotron2.default, { title: 'Titulo Principal de la secci\xF3n',
+  desc: 'Se ha producido un error' })), _react2.default.createElement(_Vlist2.default, { list: petes, rowHeight: 45, render: _Vlistitem2.default, title: 'mi lista', callback: function callback(item) {
+    console.log(item);
+  }, filtro: function filtro(item, str) {
+    var t = new RegExp(str, 'i');
+    return item.name.match(t) || item.desc.match(t);
+  } }), _react2.default.createElement(_testtree2.default, { treeData: mytree }), _react2.default.createElement(_container2.default, { fluid: true }, _react2.default.createElement(_Boton2.default, null), _react2.default.createElement(_Medalla2.default, { count: 76 }), _react2.default.createElement(_Hueso2.default, { count: 10 }), _react2.default.createElement(_Coins2.default, { coins: 123456 }), _react2.default.createElement(_Loading2.default, null)), _react2.default.createElement(_container2.default, null, _react2.default.createElement(_Jumbotron2.default, { title: 'Titulo Principal de la secci\xF3n',
   description: 'No hay descripcion',
   action: 'Presiona aqui',
   image: 'images/Cardsplay.png' }), _react2.default.createElement(_InputBox2.default, null), _react2.default.createElement(_InputBox2.default, { multiline: true }), _react2.default.createElement(_CheckBox2.default, { name: 'check1' }), _react2.default.createElement(_CheckBox2.default, { name: 'check2' })), _react2.default.createElement(_Marquesina2.default, { list: lista }), _react2.default.createElement(_Jumbotron2.default, { title: 'Jumbotron solo titulo' }), _react2.default.createElement(_Jumbotron2.default, { description: 'Jumbotron solo descripcion' }), _react2.default.createElement(_Jumbotron2.default, { image: 'images/Cardsplay.png' }), _react2.default.createElement(_Pets2.default, { pets: petes, onClick: function onClick(id) {

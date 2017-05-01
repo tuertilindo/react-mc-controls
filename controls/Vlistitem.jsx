@@ -10,8 +10,8 @@ export default class Vlistitem extends React.Component {
   }
   render () {
     var lclick = null
-    if (this.state.id && this.state.callback instanceof Function) {
-      lclick = () => { this.state.callback(this.state.id) }
+    if (this.state.callback instanceof Function) {
+      lclick = () => { this.state.callback(this.state) }
     }
     return (
       <div className="vitem" key={this.state.id} style={this.state.style}>
@@ -19,5 +19,11 @@ export default class Vlistitem extends React.Component {
         <h2>{this.state.name || this.state.title}</h2>
         <h6>{this.state.desc}</h6>
       </div>)
+  }
+  shouldComponentUpdate (nextProps, nextState) {
+    return this.props.item && nextProps.item && nextProps.item.id !== this.props.item.id
+  }
+  componentWillReceiveProps (nextProps) {
+    this.setState(objectAssign(this.state, nextProps.item))
   }
 }
