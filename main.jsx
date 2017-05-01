@@ -150,7 +150,10 @@ ReactDOM.render((
       <Error title="Ups!"
         desc="Se ha producido un error" />
     </Panel>
-    <Vlist list={petes} rowHeight={45} render={Vlistitem} title="mi lista" />
+    <Vlist list={petes} rowHeight={45} render={Vlistitem} title="mi lista" filtro={(item, str) => {
+      var t = new RegExp(str, 'i')
+      return item.name.match(t) || item.desc.match(t)
+    }} />
     <Tree treeData={mytree} />
     <Container fluid >
       <Boton />
