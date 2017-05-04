@@ -158,7 +158,7 @@ var Boton = function (_React$Component) {
       }
       var huge = this.state.huge ? 'huge ' : ' ';
       var desinflate = this.state.desinflate ? 'desinflate ' : ' ';
-      return _react2.default.createElement('span', { className: 'boton  ' + this.state.color + ' ' + { huge: huge } + { desinflate: desinflate }, onClick: this.state.click, title: title }, image, btn);
+      return _react2.default.createElement('span', { className: 'boton  ' + this.state.color + ' ' + huge + desinflate, onClick: this.state.click, title: title }, image, btn);
     }
   }]);
 
@@ -521,6 +521,10 @@ var _Panel = require('./Panel.jsx');
 
 var _Panel2 = _interopRequireDefault(_Panel);
 
+var _Jumbotron = require('./Jumbotron.jsx');
+
+var _Jumbotron2 = _interopRequireDefault(_Jumbotron);
+
 var _Bar = require('./Bar.jsx');
 
 var _Bar2 = _interopRequireDefault(_Bar);
@@ -566,14 +570,18 @@ var Crop = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Crop.__proto__ || Object.getPrototypeOf(Crop)).call(this, props));
 
     _this.state = objectAssign({
-      title: '',
+      title: 'Crear una tarjeta',
       image: 'images/previmage.png',
+      buttonText: 'Generar tarjeta',
       pet: null,
       cropcount: 0,
       cropResult: null,
+      fromfile: !props.src,
       src: null,
+      original: props.src,
       generando: false
     }, props);
+    _this.state.src = null;
     _this.cropImage = _this.cropImage.bind(_this);
     _this.onChange = _this.onChange.bind(_this);
     _this.useDefaultImage = _this.useDefaultImage.bind(_this);
@@ -590,6 +598,11 @@ var Crop = function (_Component) {
       } else if (e.target) {
         files = e.target.files;
       }
+      this.generateImg(files[0]);
+    }
+  }, {
+    key: 'generateImg',
+    value: function generateImg(img) {
       var reader = new FileReader();
       var me = this;
       me.setState({ generando: true });
@@ -606,7 +619,7 @@ var Crop = function (_Component) {
         };
         img.src = reader.result;
       };
-      reader.readAsDataURL(files[0]);
+      reader.readAsDataURL(img);
     }
   }, {
     key: 'rebuild',
@@ -642,7 +655,8 @@ var Crop = function (_Component) {
         title: '',
         cropcount: this.state.cropcount + 1,
         cropResult: null,
-        src: null
+        src: null,
+        fromfile: false
       });
     }
   }, {
@@ -650,12 +664,16 @@ var Crop = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var title = 'Crear una tarjeta';
       if (this.state.generando) {
-        return _react2.default.createElement(_Panel2.default, { title: title }, _react2.default.createElement(_Loading2.default, { span: 'Generando imagen...' }));
+        return _react2.default.createElement(_Panel2.default, { title: this.state.title }, _react2.default.createElement(_Loading2.default, { span: 'Generando imagen...' }));
+      }
+      if (this.state.original && !this.state.src && !this.state.fromfile) {
+        return _react2.default.createElement(_Jumbotron2.default, { image: this.state.original, action: 'Cambiar', click: function click() {
+            return _this2.setState({ fromfile: true });
+          } });
       }
       if (!this.state.src) {
-        return _react2.default.createElement(_Panel2.default, { title: title, image: 'images/maze-i.png' }, _react2.default.createElement('label', null, _react2.default.createElement('input', { ref: 'fimage', className: 'fileInput', type: 'file', name: 'file', accept: 'image/', capture: 'camera', onChange: this.onChange })));
+        return _react2.default.createElement(_Panel2.default, { title: this.state.title, image: 'images/maze-i.png' }, _react2.default.createElement('label', null, _react2.default.createElement('input', { ref: 'fimage', className: 'fileInput', type: 'file', name: 'file', accept: 'image/', capture: 'camera', onChange: this.onChange })));
       }
       var createCard = function createCard() {
         if (_this2.state.onCreate) {
@@ -681,7 +699,7 @@ var Crop = function (_Component) {
         zoom(-0.1);
       };
       var stylew = document.body.clientWidth / 1.7777;
-      return _react2.default.createElement(_Panel2.default, { key: 'cropkey', title: title, image: 'images/maze-i.png' }, _react2.default.createElement(_Bar2.default, { className: 'ubar' }, _react2.default.createElement(_Boton2.default, { span: 'Rotar', image: 'images/rotate-i.png', click: rotate }), _react2.default.createElement(_Boton2.default, { span: 'Agrandar', image: 'images/zoom-in-i.png', click: zoomin }), _react2.default.createElement(_Boton2.default, { span: 'Achicar', image: 'images/zoom-out-i.png', click: zoomout }), _react2.default.createElement(_Boton2.default, { span: 'Cancelar', image: 'images/cancel-i.png', click: this.useDefaultImage })), _react2.default.createElement(_reactCropper2.default, {
+      return _react2.default.createElement(_Panel2.default, { key: 'cropkey', title: this.state.title, image: 'images/maze-i.png' }, _react2.default.createElement(_Bar2.default, { className: 'ubar' }, _react2.default.createElement(_Boton2.default, { span: 'Rotar', image: 'images/rotate-i.png', click: rotate }), _react2.default.createElement(_Boton2.default, { span: 'Agrandar', image: 'images/zoom-in-i.png', click: zoomin }), _react2.default.createElement(_Boton2.default, { span: 'Achicar', image: 'images/zoom-out-i.png', click: zoomout }), _react2.default.createElement(_Boton2.default, { span: 'Cancelar', image: 'images/cancel-i.png', click: this.useDefaultImage })), _react2.default.createElement(_reactCropper2.default, {
         aspectRatio: 16 / 9,
         guides: false,
         src: this.state.src,
@@ -704,7 +722,7 @@ var Crop = function (_Component) {
         ready: this.rebuild
       }), _react2.default.createElement('div', { className: 'preview' }, _react2.default.createElement(_input2.default, { label: 'Escribe un texto para la tarjeta', onChange: function onChange(e) {
           _this2.state.title = e.target.value;
-        }, maxLength: '50', floatingLabel: true, type: 'text', defaultValue: this.state.title }), _react2.default.createElement(_Boton2.default, { span: 'Crear tarjeta', image: 'images/maze-i.png', click: createCard })));
+        }, maxLength: '50', floatingLabel: true, type: 'text', defaultValue: this.state.title }), _react2.default.createElement(_Boton2.default, { span: this.state.buttonText, image: 'images/maze-i.png', click: createCard })));
     }
   }]);
 
@@ -713,7 +731,7 @@ var Crop = function (_Component) {
 
 exports.default = Crop;
 
-},{"./Bar.jsx":1,"./Boton.jsx":2,"./Loading.jsx":12,"./Panel.jsx":15,"base64toblob":23,"muicss/lib/react/input":199,"object-assign":202,"react":467,"react-cropper":211}],7:[function(require,module,exports){
+},{"./Bar.jsx":1,"./Boton.jsx":2,"./Jumbotron.jsx":10,"./Loading.jsx":12,"./Panel.jsx":15,"base64toblob":23,"muicss/lib/react/input":199,"object-assign":202,"react":467,"react-cropper":211}],7:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -1103,7 +1121,7 @@ var Jumbotron = function (_React$Component) {
       if (this.props.description) {
         description = _react2.default.createElement('p', null, this.props.description);
       }
-      return _react2.default.createElement(_container2.default, null, _react2.default.createElement('div', { className: 'jumbotron' }, title, image, description, button));
+      return _react2.default.createElement(_container2.default, null, _react2.default.createElement('div', { className: 'jumbotron' }, title, image, description, button, this.props.children));
     }
   }]);
 
@@ -1848,7 +1866,7 @@ var Vlist = function (_React$Component) {
         var rowHeight = this.props.rowHeight || 20;
         var height = this.props.height || 300;
         var Ritem = this.props.render || _Listitem2.default;
-        return _react2.default.createElement(_Panel2.default, { title: this.props.title, expandible: true }, sbar, _react2.default.createElement('div', { style: { height: height, width: '100%' } }, _react2.default.createElement(_AutoSizer2.default, { disableHeight: true }, function (newProps) {
+        return _react2.default.createElement(_Panel2.default, { image: this.props.image, title: this.props.title }, sbar, _react2.default.createElement('div', { style: { height: height, width: '100%' } }, _react2.default.createElement(_AutoSizer2.default, { disableHeight: true }, function (newProps) {
           return _react2.default.createElement(_List2.default, {
             height: height,
             width: newProps.width,
@@ -2358,7 +2376,7 @@ _reactDom2.default.render(_react2.default.createElement('div', null, _react2.def
     return console.log(id);
   } }), _react2.default.createElement(_Pets2.default, { pets: [], title: 'Sin mascotas', onClick: function onClick(id) {
     return console.log(id);
-  } }), _react2.default.createElement(_Crop2.default, null)), document.getElementById('root'));
+  } }), _react2.default.createElement(_Crop2.default, { title: 'Agregar imagen', src: 'images/Cardsplay.png' })), document.getElementById('root'));
 
 },{"./controls/Boton.jsx":2,"./controls/CheckBox.jsx":3,"./controls/Coins.jsx":5,"./controls/Crop.jsx":6,"./controls/Error.jsx":7,"./controls/Hueso.jsx":8,"./controls/InputBox.jsx":9,"./controls/Jumbotron.jsx":10,"./controls/Loading.jsx":12,"./controls/Marquesina.jsx":13,"./controls/Medalla.jsx":14,"./controls/Panel.jsx":15,"./controls/Pets.jsx":16,"./controls/Vlist.jsx":17,"./controls/Vlistitem.jsx":18,"./controls/testtree.jsx":19,"muicss/lib/react/container":198,"react":467,"react-dom":247,"react-virtualized/dist/commonjs/AutoSizer":390}],21:[function(require,module,exports){
 "use strict";

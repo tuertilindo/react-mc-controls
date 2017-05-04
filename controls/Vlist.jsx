@@ -53,7 +53,7 @@ export default class Vlist extends React.Component {
       var height = this.props.height || 300
       var Ritem = this.props.render || Listitem
       return (
-        <Panel title={this.props.title} expandible>
+        <Panel image={this.props.image} title={this.props.title} >
           {sbar}
           <div style={{ height: height, width: '100%' }}>
             <AutoSizer disableHeight>

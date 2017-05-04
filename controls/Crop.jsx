@@ -3,6 +3,7 @@ import Input from 'muicss/lib/react/input'
 import Boton from './Boton.jsx'
 import Loading from './Loading.jsx'
 import Panel from './Panel.jsx'
+import Jumbotron from './Jumbotron.jsx'
 import Bar from './Bar.jsx'
 import Cropper from 'react-cropper'
 import base64toblob from 'base64toblob'
@@ -11,14 +12,18 @@ export default class Crop extends Component {
   constructor (props) {
     super(props)
     this.state = objectAssign({
-      title: '',
+      title: 'Crear una tarjeta',
       image: 'images/previmage.png',
+      buttonText: 'Generar tarjeta',
       pet: null,
       cropcount: 0,
       cropResult: null,
+      fromfile: !props.src,
       src: null,
+      original: props.src,
       generando: false
     }, props)
+    this.state.src = null
     this.cropImage = this.cropImage.bind(this)
     this.onChange = this.onChange.bind(this)
     this.useDefaultImage = this.useDefaultImage.bind(this)
@@ -32,6 +37,9 @@ export default class Crop extends Component {
     } else if (e.target) {
       files = e.target.files
     }
+    this.generateImg(files[0])
+  }
+  generateImg (img) {
     const reader = new FileReader()
     var me = this
     me.setState({generando: true})
@@ -48,7 +56,7 @@ export default class Crop extends Component {
       }
       img.src = reader.result
     }
-    reader.readAsDataURL(files[0])
+    reader.readAsDataURL(img)
   }
   rebuild () {
     if (this.cropper) {
@@ -78,16 +86,19 @@ export default class Crop extends Component {
       title: '',
       cropcount: this.state.cropcount + 1,
       cropResult: null,
-      src: null
+      src: null,
+      fromfile: false
     })
   }
   render () {
-    var title = 'Crear una tarjeta'
     if (this.state.generando) {
-      return (<Panel title={title}><Loading span="Generando imagen..." /></Panel>)
+      return (<Panel title={this.state.title}><Loading span="Generando imagen..." /></Panel>)
+    }
+    if (this.state.original && !this.state.src && !this.state.fromfile) {
+      return (<Jumbotron image={this.state.original} action="Cambiar" click={() => this.setState({fromfile: true})} />)
     }
     if (!this.state.src) {
-      return (<Panel title={title} image="images/maze-i.png">
+      return (<Panel title={this.state.title} image="images/maze-i.png">
         <label>
           <input ref="fimage" className="fileInput" type="file" name="file" accept="image/" capture="camera" onChange={this.onChange} />
         </label>
@@ -113,7 +124,7 @@ export default class Crop extends Component {
     var zoomin = () => { zoom(0.1) }
     var zoomout = () => { zoom(-0.1) }
     var stylew = document.body.clientWidth / 1.7777
-    return (<Panel key="cropkey" title={title} image="images/maze-i.png">
+    return (<Panel key="cropkey" title={this.state.title} image="images/maze-i.png">
       <Bar className="ubar">
         <Boton span="Rotar" image="images/rotate-i.png" click={rotate} />
         <Boton span="Agrandar" image="images/zoom-in-i.png" click={zoomin} />
@@ -142,7 +153,7 @@ export default class Crop extends Component {
       />
       <div className="preview">
         <Input label="Escribe un texto para la tarjeta" onChange={(e) => { this.state.title = e.target.value }} maxLength="50" floatingLabel={true} type="text" defaultValue={this.state.title} />
-        <Boton span="Crear tarjeta" image="images/maze-i.png" click={createCard} />
+        <Boton span={this.state.buttonText} image="images/maze-i.png" click={createCard} />
       </div>
     </Panel>
     )

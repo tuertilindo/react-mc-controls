@@ -39,7 +39,7 @@ export default class Boton extends React.Component {
     return (
       <span className={
           'boton  ' +
-          this.state.color + ' ' + {huge} + {desinflate}
+          this.state.color + ' ' + huge + desinflate
         } onClick={this.state.click} title={title} >
       {image}
       {btn}

@@ -179,7 +179,7 @@ ReactDOM.render((
     <Jumbotron image="images/Cardsplay.png" />
     <Pets pets={petes} onClick={(id) => console.log(id)} />
     <Pets pets={[]} title="Sin mascotas" onClick={(id) => console.log(id)} />
-    <Crop />
+    <Crop title="Agregar imagen" src="images/Cardsplay.png" />
   </div>
 ),
 document.getElementById('root')

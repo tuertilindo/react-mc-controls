@@ -25,6 +25,7 @@ export default class Jumbotron extends React.Component {
         {image}
         {description}
         {button}
+        {this.props.children}
       </div>
     </Container>
     )
