@@ -94,7 +94,10 @@ export default class Crop extends Component {
     if (this.state.generando) {
       return (<Panel title={this.state.title}><Loading span="Generando imagen..." /></Panel>)
     }
-    if (this.state.original && !this.state.src && !this.state.fromfile) {
+    if (this.state.original && !this.state.fromfile) {
+      if (this.state.cropResult) {
+        this.state.original = this.state.cropResult
+      }
       return (<Jumbotron image={this.state.original} action="Cambiar" click={() => this.setState({fromfile: true})} />)
     }
     if (!this.state.src) {
@@ -105,15 +108,14 @@ export default class Crop extends Component {
       </Panel>)
     }
     var createCard = () => {
+      var result = this.cropImage()
       if (this.state.onCreate) {
-        var blob = base64toblob(this.state.cropResult, 'image/jpg')
         this.state.onCreate({
           title: this.state.title,
-          image: blob,
-          name: this.state.pet.name,
-          petid: this.state.pet.id
+          image: result
         })
       }
+      this.setState({fromfile: false, cropResult: result})
     }
     var rotate = () => {
       this.cropper.rotate(30)
@@ -124,7 +126,8 @@ export default class Crop extends Component {
     var zoomin = () => { zoom(0.1) }
     var zoomout = () => { zoom(-0.1) }
     var stylew = document.body.clientWidth / 1.7777
-    return (<Panel key="cropkey" title={this.state.title} image="images/maze-i.png">
+    return (
+    <Jumbotron buttonsize="small" title={this.state.title} action="generar imagen" click={createCard}>
       <Bar className="ubar">
         <Boton span="Rotar" image="images/rotate-i.png" click={rotate} />
         <Boton span="Agrandar" image="images/zoom-in-i.png" click={zoomin} />
@@ -151,11 +154,7 @@ export default class Crop extends Component {
         style={{height: stylew, width: '100%'}}
         ready={this.rebuild}
       />
-      <div className="preview">
-        <Input label="Escribe un texto para la tarjeta" onChange={(e) => { this.state.title = e.target.value }} maxLength="50" floatingLabel={true} type="text" defaultValue={this.state.title} />
-        <Boton span={this.state.buttonText} image="images/maze-i.png" click={createCard} />
-      </div>
-    </Panel>
+    </Jumbotron>
     )
   }
 }

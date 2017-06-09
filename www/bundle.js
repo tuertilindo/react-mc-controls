@@ -667,7 +667,10 @@ var Crop = function (_Component) {
       if (this.state.generando) {
         return _react2.default.createElement(_Panel2.default, { title: this.state.title }, _react2.default.createElement(_Loading2.default, { span: 'Generando imagen...' }));
       }
-      if (this.state.original && !this.state.src && !this.state.fromfile) {
+      if (this.state.original && !this.state.fromfile) {
+        if (this.state.cropResult) {
+          this.state.original = this.state.cropResult;
+        }
         return _react2.default.createElement(_Jumbotron2.default, { image: this.state.original, action: 'Cambiar', click: function click() {
             return _this2.setState({ fromfile: true });
           } });
@@ -676,15 +679,14 @@ var Crop = function (_Component) {
         return _react2.default.createElement(_Panel2.default, { title: this.state.title, image: 'images/maze-i.png' }, _react2.default.createElement('label', null, _react2.default.createElement('input', { ref: 'fimage', className: 'fileInput', type: 'file', name: 'file', accept: 'image/', capture: 'camera', onChange: this.onChange })));
       }
       var createCard = function createCard() {
+        var result = _this2.cropImage();
         if (_this2.state.onCreate) {
-          var blob = (0, _base64toblob2.default)(_this2.state.cropResult, 'image/jpg');
           _this2.state.onCreate({
             title: _this2.state.title,
-            image: blob,
-            name: _this2.state.pet.name,
-            petid: _this2.state.pet.id
+            image: result
           });
         }
+        _this2.setState({ fromfile: false, cropResult: result });
       };
       var rotate = function rotate() {
         _this2.cropper.rotate(30);
@@ -699,7 +701,7 @@ var Crop = function (_Component) {
         zoom(-0.1);
       };
       var stylew = document.body.clientWidth / 1.7777;
-      return _react2.default.createElement(_Panel2.default, { key: 'cropkey', title: this.state.title, image: 'images/maze-i.png' }, _react2.default.createElement(_Bar2.default, { className: 'ubar' }, _react2.default.createElement(_Boton2.default, { span: 'Rotar', image: 'images/rotate-i.png', click: rotate }), _react2.default.createElement(_Boton2.default, { span: 'Agrandar', image: 'images/zoom-in-i.png', click: zoomin }), _react2.default.createElement(_Boton2.default, { span: 'Achicar', image: 'images/zoom-out-i.png', click: zoomout }), _react2.default.createElement(_Boton2.default, { span: 'Cancelar', image: 'images/cancel-i.png', click: this.useDefaultImage })), _react2.default.createElement(_reactCropper2.default, {
+      return _react2.default.createElement(_Jumbotron2.default, { buttonsize: 'small', title: this.state.title, action: 'generar imagen', click: createCard }, _react2.default.createElement(_Bar2.default, { className: 'ubar' }, _react2.default.createElement(_Boton2.default, { span: 'Rotar', image: 'images/rotate-i.png', click: rotate }), _react2.default.createElement(_Boton2.default, { span: 'Agrandar', image: 'images/zoom-in-i.png', click: zoomin }), _react2.default.createElement(_Boton2.default, { span: 'Achicar', image: 'images/zoom-out-i.png', click: zoomout }), _react2.default.createElement(_Boton2.default, { span: 'Cancelar', image: 'images/cancel-i.png', click: this.useDefaultImage })), _react2.default.createElement(_reactCropper2.default, {
         aspectRatio: 16 / 9,
         guides: false,
         src: this.state.src,
@@ -720,9 +722,7 @@ var Crop = function (_Component) {
         highlight: false,
         style: { height: stylew, width: '100%' },
         ready: this.rebuild
-      }), _react2.default.createElement('div', { className: 'preview' }, _react2.default.createElement(_input2.default, { label: 'Escribe un texto para la tarjeta', onChange: function onChange(e) {
-          _this2.state.title = e.target.value;
-        }, maxLength: '50', floatingLabel: true, type: 'text', defaultValue: this.state.title }), _react2.default.createElement(_Boton2.default, { span: this.state.buttonText, image: 'images/maze-i.png', click: createCard })));
+      }));
     }
   }]);
 
@@ -1121,7 +1121,7 @@ var Jumbotron = function (_React$Component) {
       if (this.props.description) {
         description = _react2.default.createElement('p', null, this.props.description);
       }
-      return _react2.default.createElement(_container2.default, null, _react2.default.createElement('div', { className: 'jumbotron' }, title, image, description, button, this.props.children));
+      return _react2.default.createElement(_container2.default, null, _react2.default.createElement('div', { className: 'jumbotron' }, title, image, description, this.props.children, button));
     }
   }]);
 
